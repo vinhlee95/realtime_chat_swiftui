@@ -13,10 +13,16 @@ enum LoginMode {
     case createNewAccount
 }
 
+extension StringProtocol {
+    var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
+}
+
 struct LoginView: View {
-    @State var mode = LoginMode.login
+    @State var mode = LoginMode.createNewAccount
     @State var email = ""
     @State var password = ""
+    @State var errorMessage = ""
     
     init() {
         // Init firebase SDK
@@ -38,8 +44,23 @@ struct LoginView: View {
                     .font(.system(size: 64))
                     .padding()
                 
-                TextField("Email", text: $email).padding().keyboardType(.emailAddress).autocapitalization(.none).background(.white).cornerRadius(4)
-                SecureField("Password", text: $password).padding().background(.white).cornerRadius(4)
+                TextField("Email", text: $email)
+                    .onChange(of: email, perform: { newValue in
+                        if !errorMessage.isEmpty {
+                            errorMessage = ""
+                        }
+                    })
+                    .padding().keyboardType(.emailAddress).autocapitalization(.none).background(.white).cornerRadius(4)
+                
+                SecureField("Password", text: $password)
+                    .onChange(of: password, perform: { newValue in
+                        if !errorMessage.isEmpty {
+                            errorMessage = ""
+                        }
+                    })
+                    .padding().background(.white).cornerRadius(4)
+                
+                Text(!errorMessage.isEmpty ? errorMessage.firstUppercased : "").foregroundColor(.red)
                 
                 Button {
                     handleAuthenticate()
@@ -63,11 +84,23 @@ struct LoginView: View {
         if mode == LoginMode.login {
             print("logging in to your account")
         } else if mode == LoginMode.createNewAccount {
-            print("create new account")
+            createNewAccount()
         } else {
             print("no action")
         }
         
+    }
+    
+    private func createNewAccount() {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let err = error {
+                print("failed to create user", err)
+                self.errorMessage = "failed to create new account \(err.localizedDescription)"
+                return
+            }
+            
+            print("create user succeeded", result?.user)
+        }
     }
 }
 
