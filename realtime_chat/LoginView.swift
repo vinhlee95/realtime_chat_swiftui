@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 enum LoginMode {
     case login
@@ -16,6 +17,12 @@ struct LoginView: View {
     @State var mode = LoginMode.login
     @State var email = ""
     @State var password = ""
+    
+    init() {
+        // Init firebase SDK
+        // https://console.firebase.google.com/u/0/project/swiftui-realtime-chat/overview
+        FirebaseApp.configure()
+    }
         
     var body: some View {
         NavigationView {

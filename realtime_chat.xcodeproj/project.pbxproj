@@ -16,6 +16,7 @@
 		1B40A37D2893A6020015E206 /* realtime_chatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B40A37C2893A6020015E206 /* realtime_chatUITestsLaunchTests.swift */; };
 		1B40A38B289520900015E206 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40A38A289520900015E206 /* FirebaseAuth */; };
 		1B40A38D289520900015E206 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40A38C289520900015E206 /* FirebaseStorage */; };
+		1B40A38F289521D60015E206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B40A38E289521D60015E206 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		1B40A3762893A6020015E206 /* realtime_chatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = realtime_chatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B40A37A2893A6020015E206 /* realtime_chatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = realtime_chatUITests.swift; sourceTree = "<group>"; };
 		1B40A37C2893A6020015E206 /* realtime_chatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = realtime_chatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1B40A38E289521D60015E206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			children = (
 				1B40A35F2893A6000015E206 /* realtime_chatApp.swift */,
 				1B40A3612893A6000015E206 /* LoginView.swift */,
+				1B40A38E289521D60015E206 /* GoogleService-Info.plist */,
 				1B40A3632893A6020015E206 /* Assets.xcassets */,
 				1B40A3652893A6020015E206 /* Preview Content */,
 			);
@@ -244,6 +247,7 @@
 			files = (
 				1B40A3672893A6020015E206 /* Preview Assets.xcassets in Resources */,
 				1B40A3642893A6020015E206 /* Assets.xcassets in Resources */,
+				1B40A38F289521D60015E206 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
