@@ -19,7 +19,7 @@ extension StringProtocol {
 }
 
 struct LoginView: View {
-    @State var mode = LoginMode.createNewAccount
+    @State var mode = LoginMode.login
     @State var email = ""
     @State var password = ""
     @State var errorMessage = ""
@@ -82,19 +82,28 @@ struct LoginView: View {
     
     private func handleAuthenticate() {
         if mode == LoginMode.login {
-            print("logging in to your account")
+            login()
         } else if mode == LoginMode.createNewAccount {
             createNewAccount()
         } else {
             print("no action")
         }
-        
+    }
+    
+    private func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let err = error {
+                self.errorMessage = "failed to create new account \(err.localizedDescription)"
+                return
+            }
+            
+            print("login success", result?.user.uid)
+        }
     }
     
     private func createNewAccount() {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let err = error {
-                print("failed to create user", err)
                 self.errorMessage = "failed to create new account \(err.localizedDescription)"
                 return
             }
