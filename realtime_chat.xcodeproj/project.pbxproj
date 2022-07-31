@@ -17,6 +17,7 @@
 		1B40A38B289520900015E206 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40A38A289520900015E206 /* FirebaseAuth */; };
 		1B40A38D289520900015E206 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1B40A38C289520900015E206 /* FirebaseStorage */; };
 		1B40A3932896DB3C0015E206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B40A3922896DB3C0015E206 /* GoogleService-Info.plist */; };
+		1B40A3972896E7E40015E206 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B40A3962896E7E40015E206 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		1B40A37A2893A6020015E206 /* realtime_chatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = realtime_chatUITests.swift; sourceTree = "<group>"; };
 		1B40A37C2893A6020015E206 /* realtime_chatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = realtime_chatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1B40A3922896DB3C0015E206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B40A3962896E7E40015E206 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				1B40A3922896DB3C0015E206 /* GoogleService-Info.plist */,
 				1B40A3632893A6020015E206 /* Assets.xcassets */,
 				1B40A3652893A6020015E206 /* Preview Content */,
+				1B40A3962896E7E40015E206 /* ImagePicker.swift */,
 			);
 			path = realtime_chat;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B40A3972896E7E40015E206 /* ImagePicker.swift in Sources */,
 				1B40A3622893A6000015E206 /* LoginView.swift in Sources */,
 				1B40A3602893A6000015E206 /* realtime_chatApp.swift in Sources */,
 			);

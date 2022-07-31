@@ -39,6 +39,8 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     @State var errorMessage = ""
+    @State var isImagePickerShown = false
+    @State var profileImage: UIImage?
         
     var body: some View {
         NavigationView {
@@ -50,9 +52,22 @@ struct LoginView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(5)
                 
-                Image(systemName: "person.fill")
-                    .font(.system(size: 64))
-                    .padding()
+                Button {
+                    isImagePickerShown.toggle()
+                } label: {
+                    if let image = profileImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 128, height: 128)
+                            .cornerRadius(64)
+                    } else {
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 64))
+                            .padding()
+                    }
+                }
+
                 
                 TextField("Email", text: $email)
                     .onChange(of: email, perform: { newValue in
@@ -87,6 +102,10 @@ struct LoginView: View {
             .navigationTitle(mode == LoginMode.login ? "Login" : "Create new account")
             .padding(.horizontal, 20)
             .background(Color(.init(white: 0, alpha: 0.05)))
+            .fullScreenCover(isPresented: $isImagePickerShown) {
+                ImagePicker(image: $profileImage)
+            }
+            
         }
     }
     
