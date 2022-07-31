@@ -18,17 +18,27 @@ extension StringProtocol {
     var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
 }
 
+class FirebaseManager: NSObject {
+    // shared singleton
+    static let shared = FirebaseManager()
+    
+    let auth: Auth
+    
+    // Using private so that consumers can use the singleton only
+    private override init() {
+        FirebaseApp.configure()
+        
+        self.auth = Auth.auth()
+        
+        super.init()
+    }
+}
+
 struct LoginView: View {
     @State var mode = LoginMode.login
     @State var email = ""
     @State var password = ""
     @State var errorMessage = ""
-    
-    init() {
-        // Init firebase SDK
-        // https://console.firebase.google.com/u/0/project/swiftui-realtime-chat/overview
-        FirebaseApp.configure()
-    }
         
     var body: some View {
         NavigationView {
@@ -91,7 +101,7 @@ struct LoginView: View {
     }
     
     private func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, error in
             if let err = error {
                 self.errorMessage = "failed to create new account \(err.localizedDescription)"
                 return
@@ -102,7 +112,7 @@ struct LoginView: View {
     }
     
     private func createNewAccount() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, error in
             if let err = error {
                 self.errorMessage = "failed to create new account \(err.localizedDescription)"
                 return
