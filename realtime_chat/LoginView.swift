@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 enum LoginMode {
     case login
@@ -23,12 +24,14 @@ class FirebaseManager: NSObject {
     static let shared = FirebaseManager()
     
     let auth: Auth
+    let storage: Storage
     
     // Using private so that consumers can use the singleton only
     private override init() {
         FirebaseApp.configure()
         
         self.auth = Auth.auth()
+        self.storage = Storage.storage()
         
         super.init()
     }
@@ -137,7 +140,29 @@ struct LoginView: View {
                 return
             }
             
-            print("create user succeeded", result?.user)
+            print("create user succeeded", result?.user.uid)
+            
+            uploadProfileImage()
+        }
+    }
+    
+    // Upload use's profile image to Firebase Storage
+    // https://firebase.google.com/docs/storage/ios/upload-files
+    private func uploadProfileImage() {
+        guard let userId = FirebaseManager.shared.auth.currentUser?.uid else {return}
+        guard let uploadingImage = self.profileImage?.jpegData(compressionQuality: 0.5) else {return}
+        
+        let storageRef = FirebaseManager.shared.storage.reference()
+        let userProfileImageRef = storageRef.child("images/profile/\(userId).jpg")
+        
+        userProfileImageRef.putData(uploadingImage, metadata: nil) { metadata, error in
+            guard let metadata = metadata else {
+                guard let errorMessage = error?.localizedDescription else {return}
+                self.errorMessage = errorMessage
+                return
+            }
+            
+            print("Successfully uploaded profile image", metadata)
         }
     }
 }
