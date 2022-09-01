@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 
 enum LoginMode {
     case login
@@ -25,6 +26,7 @@ class FirebaseManager: NSObject {
     
     let auth: Auth
     let storage: Storage
+    let database: Firestore
     
     // Using private so that consumers can use the singleton only
     private override init() {
@@ -32,6 +34,7 @@ class FirebaseManager: NSObject {
         
         self.auth = Auth.auth()
         self.storage = Storage.storage()
+        self.database = Firestore.firestore()
         
         super.init()
     }
@@ -163,6 +166,29 @@ struct LoginView: View {
             }
             
             print("Successfully uploaded profile image", metadata)
+            
+            userProfileImageRef.downloadURL { url, error in
+                if let error = error {
+                    self.errorMessage = error.localizedDescription
+                    return
+                }
+                
+                guard let email = FirebaseManager.shared.auth.currentUser?.email else {return}
+                
+                guard let profileImageUrl = url?.absoluteString else {return}
+                
+                saveUser(userId: userId, email: email, profileImageUrl: profileImageUrl)
+            }
+        }
+    }
+    
+    private func saveUser(userId: String, email: String, profileImageUrl: String) {
+        FirebaseManager.shared.database.collection("users").addDocument(data: ["id": userId, "email": email, "profileImageUrl": profileImageUrl]) { err in
+            if let err = err {
+                self.errorMessage = err.localizedDescription
+                return
+            }
+            print("Successfully saved user to DB")
         }
     }
 }
