@@ -11,7 +11,7 @@ import SwiftUI
 struct realtime_chatApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            MessageListView()
         }
     }
 }

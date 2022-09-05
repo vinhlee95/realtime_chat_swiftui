@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseStorage
-import FirebaseFirestore
 
 enum LoginMode {
     case login
@@ -18,26 +15,6 @@ enum LoginMode {
 extension StringProtocol {
     var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
     var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
-}
-
-class FirebaseManager: NSObject {
-    // shared singleton
-    static let shared = FirebaseManager()
-    
-    let auth: Auth
-    let storage: Storage
-    let database: Firestore
-    
-    // Using private so that consumers can use the singleton only
-    private override init() {
-        FirebaseApp.configure()
-        
-        self.auth = Auth.auth()
-        self.storage = Storage.storage()
-        self.database = Firestore.firestore()
-        
-        super.init()
-    }
 }
 
 struct LoginView: View {
