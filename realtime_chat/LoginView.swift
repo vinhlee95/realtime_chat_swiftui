@@ -193,7 +193,7 @@ struct LoginView: View {
     }
 }
 
-struct ContentView_Previews1: PreviewProvider {
+struct ContentView_Previews2: PreviewProvider {
     static var previews: some View {
         LoginView()
     }
