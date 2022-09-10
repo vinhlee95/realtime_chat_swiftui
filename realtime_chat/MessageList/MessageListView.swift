@@ -6,21 +6,60 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
+struct ChatUser {
+    let id, email, profileImageUrl: String
+}
+
+class MainMessagesViewModel: ObservableObject {
+    @Published var mainUser: ChatUser?
+    
+    init() {
+        fetchCurrentUser()
+    }
+    
+    private func fetchCurrentUser() {
+        print("Fetch current user")
+//        guard let userId = FirebaseManager.shared.auth.currentUser?.uid else {return}
+        let userId = "rXU3I3ki0fbMD8btWJtoF8rRLXf1"
+        
+        FirebaseManager.shared.database.collection("users").document(userId).getDocument { document, error in
+            guard let data = document?.data() else {
+                print("No user data")
+                return
+            }
+            
+            let id = data["id"] as? String ?? ""
+            let email = data["email"] as? String ?? ""
+            let profileImageUrl = data["profileImageUrl"] as? String ?? ""
+            
+            self.mainUser = ChatUser(id: id, email: email, profileImageUrl: profileImageUrl)
+        }
+    }
+}
 
 struct MessageListView: View {
     @State var shouldShowLogoutActionSheet = false
+    @ObservedObject private var model = MainMessagesViewModel()
     
     private var CustomNavBar: some View {
         HStack(alignment: .center) {
-            Image(systemName: "person.fill").font(.system(size: 28))
+            WebImage(url: URL(string: model.mainUser?.profileImageUrl ?? ""))
+                .resizable()
+                .clipped()
+                .frame(width: 52, height: 52, alignment: .center)
+                .cornerRadius(42)
+                .shadow(radius: 10)
+            
             VStack(alignment: .leading, spacing: 4) {
-                Text("User name")
+                Text(model.mainUser?.email ?? "").font(.system(size: 24, weight: .bold))
                 HStack {
                     Circle().foregroundColor(.green).frame(width: 14, height: 14)
                     Text("online")
                 }
             }
+            
             Spacer()
             Button {
                 shouldShowLogoutActionSheet.toggle()

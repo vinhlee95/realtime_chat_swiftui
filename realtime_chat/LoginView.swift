@@ -160,7 +160,7 @@ struct LoginView: View {
     }
     
     private func saveUser(userId: String, email: String, profileImageUrl: String) {
-        FirebaseManager.shared.database.collection("users").addDocument(data: ["id": userId, "email": email, "profileImageUrl": profileImageUrl]) { err in
+        FirebaseManager.shared.database.collection("users").document(userId).setData(["id": userId, "email": email, "profileImageUrl": profileImageUrl]) { err in
             if let err = err {
                 self.errorMessage = err.localizedDescription
                 return
