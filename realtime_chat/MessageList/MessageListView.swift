@@ -8,10 +8,6 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ChatUser {
-    let id, email, profileImageUrl: String
-}
-
 class MainMessagesViewModel: ObservableObject {
     @Published var mainUser: ChatUser? = nil
     @Published var isLoggedOut: Bool = false
@@ -30,15 +26,10 @@ class MainMessagesViewModel: ObservableObject {
         
         FirebaseManager.shared.database.collection("users").document(userId).getDocument { document, error in
             guard let data = document?.data() else {
-                print("No user data")
                 return
             }
             
-            let id = data["id"] as? String ?? ""
-            let email = data["email"] as? String ?? ""
-            let profileImageUrl = data["profileImageUrl"] as? String ?? ""
-            
-            self.mainUser = ChatUser(id: id, email: email, profileImageUrl: profileImageUrl)
+            self.mainUser = .init(data: data)
         }
     }
     
