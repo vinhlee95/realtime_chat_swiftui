@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 class MainMessagesViewModel: ObservableObject {
     @Published var mainUser: ChatUser? = nil
     @Published var isLoggedOut: Bool = false
+    @Published var error: String = ""
     
     init() {
         // Check if the user is currently logged in
@@ -26,6 +27,7 @@ class MainMessagesViewModel: ObservableObject {
         
         FirebaseManager.shared.database.collection("users").document(userId).getDocument { document, error in
             guard let data = document?.data() else {
+                self.error = "Failed to fetch data for current user. Please contact app developer."
                 return
             }
             
@@ -34,8 +36,14 @@ class MainMessagesViewModel: ObservableObject {
     }
     
     func handleLogout() {
+        // Flip logout state to present login view
         isLoggedOut.toggle()
+        
+        // Clear local state
         self.mainUser = nil
+        self.error = ""
+        
+        // Signout Firebase user
         try? FirebaseManager.shared.auth.signOut()
     }
 }
@@ -118,6 +126,9 @@ struct MessageListView: View {
         NavigationView {
             VStack {
                 CustomNavBar
+                
+                Text(model.error).foregroundColor(.red)
+                
                 ScrollView {
                     ForEach(0..<20, id: \.self) {num in
                         MessageLine

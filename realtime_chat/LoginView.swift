@@ -21,7 +21,7 @@ struct LoginView: View {
     // Callback that will be executed when the user successfully logged in
     let handleLoginSuccess: () -> ()
     
-    @State private var mode = LoginMode.createNewAccount
+    @State private var mode = LoginMode.login
     @State private var email = ""
     @State private var password = ""
     @State private var errorMessage = ""
