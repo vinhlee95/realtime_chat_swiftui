@@ -38,22 +38,25 @@ struct LoginView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(5)
                 
-                Button {
-                    isImagePickerShown.toggle()
-                } label: {
-                    if let image = profileImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 128, height: 128)
-                            .cornerRadius(64)
-                    } else {
-                        Image(systemName: "person.fill")
-                            .font(.system(size: 64))
-                            .padding()
+                // Only render image picker button in Create account mode
+                if self.mode == LoginMode.createNewAccount {
+                    Button {
+                        isImagePickerShown.toggle()
+                    } label: {
+                        if let image = profileImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 128, height: 128)
+                                .cornerRadius(64)
+                        } else {
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 64))
+                                .padding()
+                        }
                     }
-                }
 
+                }
                 
                 TextField("Email", text: $email)
                     .onChange(of: email, perform: { newValue in
