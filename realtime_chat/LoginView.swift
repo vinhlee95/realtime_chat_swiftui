@@ -18,12 +18,15 @@ extension StringProtocol {
 }
 
 struct LoginView: View {
-    @State var mode = LoginMode.login
-    @State var email = ""
-    @State var password = ""
-    @State var errorMessage = ""
-    @State var isImagePickerShown = false
-    @State var profileImage: UIImage?
+    // Callback that will be executed when the user successfully logged in
+    let handleLoginSuccess: () -> ()
+    
+    @State private var mode = LoginMode.createNewAccount
+    @State private var email = ""
+    @State private var password = ""
+    @State private var errorMessage = ""
+    @State private var isImagePickerShown = false
+    @State private var profileImage: UIImage?
         
     var body: some View {
         NavigationView {
@@ -108,8 +111,7 @@ struct LoginView: View {
                 self.errorMessage = "failed to create new account \(err.localizedDescription)"
                 return
             }
-            
-            print("login success", result?.user.uid)
+            self.handleLoginSuccess()
         }
     }
     
@@ -119,9 +121,6 @@ struct LoginView: View {
                 self.errorMessage = "failed to create new account \(err.localizedDescription)"
                 return
             }
-            
-            print("create user succeeded", result?.user.uid)
-            
             uploadProfileImage()
         }
     }
@@ -155,6 +154,8 @@ struct LoginView: View {
                 guard let profileImageUrl = url?.absoluteString else {return}
                 
                 saveUser(userId: userId, email: email, profileImageUrl: profileImageUrl)
+                
+                self.handleLoginSuccess()
             }
         }
     }
@@ -172,6 +173,8 @@ struct LoginView: View {
 
 struct ContentView_Previews2: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(handleLoginSuccess:  {
+            
+        })
     }
 }

@@ -13,7 +13,7 @@ struct ChatUser {
 }
 
 class MainMessagesViewModel: ObservableObject {
-    @Published var mainUser: ChatUser?
+    @Published var mainUser: ChatUser? = nil
     @Published var isLoggedOut: Bool = false
     
     init() {
@@ -25,7 +25,7 @@ class MainMessagesViewModel: ObservableObject {
         fetchCurrentUser()
     }
     
-    private func fetchCurrentUser() {
+    func fetchCurrentUser() {
         guard let userId = FirebaseManager.shared.auth.currentUser?.uid else {return}
         
         FirebaseManager.shared.database.collection("users").document(userId).getDocument { document, error in
@@ -44,6 +44,7 @@ class MainMessagesViewModel: ObservableObject {
     
     func handleLogout() {
         isLoggedOut.toggle()
+        self.mainUser = nil
         try? FirebaseManager.shared.auth.signOut()
     }
 }
@@ -141,7 +142,10 @@ struct MessageListView: View {
             alignment: .bottom
         )
         .fullScreenCover(isPresented: $model.isLoggedOut) {
-            LoginView()
+            LoginView(handleLoginSuccess: {
+                self.model.isLoggedOut = false
+                self.model.fetchCurrentUser()
+            })
         }
     }
 }
