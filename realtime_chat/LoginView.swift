@@ -50,11 +50,15 @@ struct LoginView: View {
                                 .frame(width: 128, height: 128)
                                 .cornerRadius(64)
                         } else {
-                            Image(systemName: "person.fill")
-                                .font(.system(size: 64))
-                                .padding()
+                            VStack {
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: 64))
+                                    .padding()
+                                
+                                Text("Tap to select an image to upload").font(.system(size: 14))
+                            }
                         }
-                    }
+                    }.padding(.bottom)
 
                 }
                 
@@ -64,7 +68,7 @@ struct LoginView: View {
                             errorMessage = ""
                         }
                     })
-                    .padding().keyboardType(.emailAddress).autocapitalization(.none).background(.white).cornerRadius(4)
+                    .padding().keyboardType(.emailAddress).autocapitalization(.none).background(.white).cornerRadius(8)
                 
                 SecureField("Password", text: $password)
                     .onChange(of: password, perform: { newValue in
@@ -72,7 +76,7 @@ struct LoginView: View {
                             errorMessage = ""
                         }
                     })
-                    .padding().background(.white).cornerRadius(4)
+                    .padding().background(.white).cornerRadius(8)
                 
                 Text(!errorMessage.isEmpty ? errorMessage.firstUppercased : "").foregroundColor(.red)
                 
@@ -86,7 +90,7 @@ struct LoginView: View {
                             .padding(.vertical, 10)
                         Spacer()
                     }.background(Color.blue)
-                }.cornerRadius(4)
+                }.cornerRadius(8)
             }
             .navigationTitle(mode == LoginMode.login ? "Login" : "Create new account")
             .padding(.horizontal, 20)
