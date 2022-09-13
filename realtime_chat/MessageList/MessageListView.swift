@@ -50,6 +50,7 @@ class MainMessagesViewModel: ObservableObject {
 
 struct MessageListView: View {
     @State var shouldShowLogoutActionSheet = false
+    @State var shouldShowNewMessageView = false
     @ObservedObject private var model = MainMessagesViewModel()
     
     private var CustomNavBar: some View {
@@ -89,7 +90,7 @@ struct MessageListView: View {
     
     private var NewMessageButton: some View {
         Button(action: {
-            print("New message")
+            shouldShowNewMessageView.toggle()
         }, label: {
             HStack {
                 Spacer()
@@ -103,6 +104,9 @@ struct MessageListView: View {
                 .shadow(radius: 14)
         })
         .padding()
+        .fullScreenCover(isPresented: $shouldShowNewMessageView) {
+            NewMessageView()
+        }
     }
     
     private var MessageLine: some View {
