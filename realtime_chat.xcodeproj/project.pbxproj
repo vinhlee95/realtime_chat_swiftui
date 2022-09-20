@@ -23,6 +23,7 @@
 		1B51A8E328CC79CE00FEED9D /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1B51A8E228CC79CE00FEED9D /* SDWebImageSwiftUI */; };
 		1B51A8E628CC897900FEED9D /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51A8E528CC897900FEED9D /* ChatUser.swift */; };
 		1B51A8E928D03A4900FEED9D /* NewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51A8E828D03A4900FEED9D /* NewMessageView.swift */; };
+		1B51A8EC28D0474200FEED9D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51A8EB28D0474200FEED9D /* Extensions.swift */; };
 		1B82D3ED28C0780A00F82D3A /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B82D3EC28C0780A00F82D3A /* MessageListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		1B51A8DF28C65D1E00FEED9D /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		1B51A8E528CC897900FEED9D /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		1B51A8E828D03A4900FEED9D /* NewMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageView.swift; sourceTree = "<group>"; };
+		1B51A8EB28D0474200FEED9D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1B82D3EC28C0780A00F82D3A /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 		1B40A35E2893A6000015E206 /* realtime_chat */ = {
 			isa = PBXGroup;
 			children = (
+				1B51A8EA28D0472B00FEED9D /* Utils */,
 				1B51A8E728D03A3700FEED9D /* NewMessage */,
 				1B51A8E428CC896E00FEED9D /* Model */,
 				1B82D3EB28C077F800F82D3A /* MessageList */,
@@ -167,6 +170,14 @@
 				1B51A8E828D03A4900FEED9D /* NewMessageView.swift */,
 			);
 			path = NewMessage;
+			sourceTree = "<group>";
+		};
+		1B51A8EA28D0472B00FEED9D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1B51A8EB28D0474200FEED9D /* Extensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		1B82D3EB28C077F800F82D3A /* MessageList */ = {
@@ -319,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B51A8E628CC897900FEED9D /* ChatUser.swift in Sources */,
+				1B51A8EC28D0474200FEED9D /* Extensions.swift in Sources */,
 				1B82D3ED28C0780A00F82D3A /* MessageListView.swift in Sources */,
 				1B51A8E928D03A4900FEED9D /* NewMessageView.swift in Sources */,
 				1B40A3972896E7E40015E206 /* ImagePicker.swift in Sources */,

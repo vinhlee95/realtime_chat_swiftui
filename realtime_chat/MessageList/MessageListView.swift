@@ -55,12 +55,7 @@ struct MessageListView: View {
     
     private var CustomNavBar: some View {
         HStack(alignment: .center) {
-            WebImage(url: URL(string: model.mainUser?.profileImageUrl ?? ""))
-                .resizable()
-                .clipped()
-                .frame(width: 52, height: 52, alignment: .center)
-                .cornerRadius(42)
-                .shadow(radius: 10)
+            WebImage.profileImage(url: model.mainUser?.profileImageUrl ?? "")
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(model.mainUser?.email ?? "").font(.system(size: 24, weight: .bold))

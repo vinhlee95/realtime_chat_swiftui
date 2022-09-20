@@ -47,12 +47,7 @@ struct NewMessageView: View {
                         
                     } label: {
                         HStack {
-                            WebImage(url: URL(string: user.profileImageUrl))
-                                .resizable()
-                                .clipped()
-                                .frame(width: 52, height: 52, alignment: .center)
-                                .cornerRadius(42)
-                                .shadow(radius: 10)
+                            WebImage.profileImage(url: user.profileImageUrl)
                             VStack(alignment: .leading) {
                                 Text(user.email).foregroundColor(Color(.label))
                             }
