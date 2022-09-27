@@ -141,7 +141,7 @@ struct MessageListView: View {
                 .padding(.horizontal)
                 
                 NavigationLink("", isActive: $shouldNavigateToChatLogView) {
-                    PrivateChatView()
+                    PrivateChatView(chatUser: nil)
                 }
             }
         }

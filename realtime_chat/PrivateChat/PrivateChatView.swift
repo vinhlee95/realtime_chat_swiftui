@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrivateChatView: View {
-//    let chatUser: ChatUser?
+    let chatUser: ChatUser?
     
     var body: some View {
             ScrollView {
@@ -23,7 +23,7 @@ struct PrivateChatView: View {
 struct PrivateChatView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PrivateChatView()
+            PrivateChatView(chatUser: nil)
         }
     }
 }
