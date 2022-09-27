@@ -39,12 +39,14 @@ struct NewMessageView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject private var model = NewMessageViewModel()
     
+    let handleSelectChatUser: (ChatUser) -> ()
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 ForEach(self.model.users) { user in
                     Button {
-                        
+                        handleSelectChatUser(user)
                     } label: {
                         HStack {
                             WebImage.profileImage(url: user.profileImageUrl)
@@ -74,6 +76,8 @@ struct NewMessageView: View {
 
 struct NewMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        NewMessageView()
+        NewMessageView {user in
+            
+        }
     }
 }

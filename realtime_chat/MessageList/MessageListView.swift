@@ -53,6 +53,9 @@ struct MessageListView: View {
     @State var shouldShowNewMessageView = false
     @ObservedObject private var model = MainMessagesViewModel()
     
+    @State var shouldNavigateToChatLogView = false
+    @State var chatUser: ChatUser?
+    
     private var CustomNavBar: some View {
         HStack(alignment: .center) {
             WebImage.profileImage(url: model.mainUser?.profileImageUrl ?? "")
@@ -100,7 +103,9 @@ struct MessageListView: View {
         })
         .padding()
         .fullScreenCover(isPresented: $shouldShowNewMessageView) {
-            NewMessageView()
+            NewMessageView(handleSelectChatUser: {user in
+                self.shouldNavigateToChatLogView.toggle()
+            })
         }
     }
     
@@ -125,9 +130,7 @@ struct MessageListView: View {
         NavigationView {
             VStack {
                 CustomNavBar
-                
                 Text(model.error).foregroundColor(.red)
-                
                 ScrollView {
                     ForEach(0..<20, id: \.self) {num in
                         MessageLine
@@ -136,6 +139,10 @@ struct MessageListView: View {
                 }
                 .navigationBarHidden(true)
                 .padding(.horizontal)
+                
+                NavigationLink("", isActive: $shouldNavigateToChatLogView) {
+                    PrivateChatView()
+                }
             }
         }
         .overlay(
